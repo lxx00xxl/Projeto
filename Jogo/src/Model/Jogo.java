@@ -1,6 +1,6 @@
 package Model;
 import java.util.Random;
-public class Jogo{
+class Jogo{
     String tab[][] = new String[15][20];
     int modo = 0;
     Random random = new Random();
