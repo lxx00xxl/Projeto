@@ -2,10 +2,10 @@ package Model;
 
 
 class Jogador{
-    private int exploradores[][] = new int[6][2];
-    private int pontos = 0;
+    private int exploradores[][] = new int[6][2], pontos, metas = 0, status_exp[] = {0,0,0,0,0,0};
     private char cartas[] = new char[10];
     char cor ;
+    
     public Jogador(int polo[], char cor){
         this.cor = cor;
         for (int i=0;i<6;i++){
@@ -29,5 +29,11 @@ class Jogador{
     }
     char getcor() {
     	return cor;
+    }
+    void setstatus(int ind) {
+    	status_exp[ind] = 1;
+    }
+    void addmeta() {
+    	metas++;
     }
 }
