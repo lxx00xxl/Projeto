@@ -8,10 +8,10 @@ class Jogo{
     int polo[]= new int[2], polo_oposto[] = new int[2];
     char cor[] = {'A','V','R','L'};
     {
-        polo[0] = 3;
-        polo[1] = 10;
-        polo_oposto[0] = 17;
-	polo_oposto[1] = 10;
+        polo[0] = 4;
+        polo[1] = 8;
+        polo_oposto[0] = 14;
+	polo_oposto[1] = 8;
     }
     
     public Jogo(int modo, int qnt){
