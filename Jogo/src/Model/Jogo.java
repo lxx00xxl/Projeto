@@ -40,7 +40,7 @@ class Jogo{
         }
         return 0;
     }
-    int ver_exp(int ind_jog, int i, int j) {/*verifica o explorador de um jogador que esta na posicao*/
+    int ver_exp(int ind_jog, int i, int j) {/*verifica qual explorador de um jogador esta na posicao [i][j]*/
     	for(int x =0; x<6;x++) {
     		if(jog[ind_jog].getposicao(x)[0] == j && jog[ind_jog].getposicao(x)[1] == i) {
     			return x;
