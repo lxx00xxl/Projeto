@@ -1,17 +1,20 @@
 package Model;
 import java.util.Random;
 class Jogo{
-
     Random random = new Random();
     int dado[] = new int[2], pos_metas[][]= {{8,2},{8,8}}, modo = 0,polo[]= new int[2], polo_oposto[] = new int[2];
     Jogador jog[];
     char cor[] = {'A','V','R','L'}, time1[] = {cor[0],cor[1]},time2[] = {cor[2],cor[3]};
     {
-        
         polo[0] = 4;
         polo[1] = 8;
         polo_oposto[0] = 14;
 		polo_oposto[1] = 8;
+		
+
+
+		
+
     }
     
     
@@ -40,7 +43,7 @@ class Jogo{
         }
         return 0;
     }
-    int ver_exp(int ind_jog, int i, int j) {/*verifica qual explorador de um jogador esta na posicao [i][j]*/
+    int ver_exp(int ind_jog, int i, int j) {
     	for(int x =0; x<6;x++) {
     		if(jog[ind_jog].getposicao(x)[0] == j && jog[ind_jog].getposicao(x)[1] == i) {
     			return x;
@@ -48,7 +51,7 @@ class Jogo{
     	}
     	return 0;
     }
-    boolean ver_time(char time[], char a, char b) {/*Verifica se a e b pertencem ao mesmo time*/
+    boolean ver_time(char time[], char a, char b) {
     	return (a == time[0] || a == time[1]) && (b == time[0] || b == time[1]) ;
     }
     boolean capturar(int ind_jog,int i, int j) {
@@ -77,7 +80,7 @@ class Jogo{
     			}
     		}
     		System.out.println("Capturou!");
-    		/*Captura o explorador advesÃ¡rio*/
+    		/*Captura o explorador advesário*/
     		ind_exp = ver_exp(ind_jog2,i,j);
     		jog[ind_jog2].volta_polo(ind_exp);
     		
@@ -136,6 +139,17 @@ class Jogo{
         
         return 0;
     }
-
-    
+    int[] getposicao(int ind_jog, int ind_exp) {
+    	int res[] = {jog[ind_jog].getposicao(ind_exp)[1],jog[ind_jog].getposicao(ind_exp)[0]};
+    	return res;
+    }
+    public boolean ganhou(int ind){
+    	int res =0;
+        for(int x =0; x<6;x++) {
+        	if(jog[ind].status_exp(x)) {
+        		res++;
+        	}
+        }
+        return res == 6;
+    }
 }
