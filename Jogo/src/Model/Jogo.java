@@ -29,11 +29,11 @@ class Jogo{
         jog = new Jogador[qnt];
         
         for(int x =0; x<qnt;x++) {
-        	if(x > qnt/2) {
-        		polo[0] = 17;
-        		polo[1] = 10;
-        		polo_oposto[0] = 3;
-        		polo_oposto[1] = 10;
+        	if(x >= qnt/2) {
+        	polo[0] = 14;
+                polo[1] = 8;
+                polo_oposto[0] = 4;
+        	polo_oposto[1] = 8;
         	}
             jog[x] = new Jogador(polo,polo_oposto,cor[x]);
         }
