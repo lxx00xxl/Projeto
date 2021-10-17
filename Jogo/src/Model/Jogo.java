@@ -166,16 +166,16 @@ class Jogo{
         dis[0] = j;
         dis[1] = i;
         if(sent ==1){
-        	dis[1] += dado[x];
+        	dis[1] += x;
         }
         else if(sent == -1){
-        	dis[1] -= dado[x];
+        	dis[1] -= x;
         }
         else if(sent == 2){
-        	dis[0] += dado[x];
+        	dis[0] += x;
         }
         else{
-        	dis[0] -= dado[x];
+        	dis[0] -= x;
         }
     	
         /*Se a posicao que o explorador for movimentar tiver no maximo 1 explorador do outro jogador (ou time se for modo 1) ou for o polo oposto*/
@@ -203,7 +203,7 @@ class Jogo{
     }
     public char ver_ganhador() {
     	int pontos =0;
-    	char jog_cor = 'A';
+    	char jog_cor = 0;
     	for(Jogador j: jog) {
     		if(j.getpontos()> pontos ) {
     			jog_cor = j.getcor();
