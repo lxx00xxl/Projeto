@@ -45,10 +45,10 @@ public class Main
 	    System.out.println("Escolha o sentido: 1(baixo) -1(cima) 2(lado-es) -2(lado-di)");
 	    sentido = s.nextInt();
 	    pos_ant = a.getposicao(jog, exp);
-	    mov = a.movimentar(jog,exp,pos,sentido);
+	    mov = a.movimentar(jog,exp,dado[pos],sentido);
 	    while(mov !=1 || (a.getposicao(jog, exp)[0] >= 15 || a.getposicao(jog, exp)[0] < 0 || a.getposicao(jog, exp)[1] >= 20 || a.getposicao(jog, exp)[1] < 0)){
 	        if(mov == 1) {
-	        	a.movimentar(jog,exp,pos,-sentido);
+	        	a.movimentar(jog,exp,dado[pos],-sentido);
 	        }
 	        else if(mov == -1) {
 	        	System.out.println("Explorador chegou no Polo. Escolha outro explorador:");
@@ -56,7 +56,7 @@ public class Main
 	        }
 
 	        sentido = s.nextInt();
-	        mov = a.movimentar(jog,exp,pos,sentido);
+	        mov = a.movimentar(jog,exp,dado[pos],sentido);
 	        
 	    	
 	    }
@@ -68,10 +68,10 @@ public class Main
 	    System.out.println("Escolha o sentido:");
 	    sentido = s.nextInt();
 	    pos_ant = a.getposicao(jog, exp);
-	    mov = a.movimentar(jog,exp,(pos+1)%2,sentido);
+	    mov = a.movimentar(jog,exp,dado[(pos+1)%2],sentido);
 	    while(mov !=1 || (a.getposicao(jog, exp)[0] >= 15 || a.getposicao(jog, exp)[0] < 0 || a.getposicao(jog, exp)[1] >= 20 || a.getposicao(jog, exp)[1] < 0)){
 	        if(mov == 1) {
-	        	a.movimentar(jog,exp,(pos+1)%2,-sentido);
+	        	a.movimentar(jog,exp,dado[(pos+1)%2],-sentido);
 	        }
 	        else if(mov == -1) {
 	        	System.out.println("Explorador chegou no Polo. Escolha outro explorador:");
@@ -79,7 +79,7 @@ public class Main
 	        }
 	        
 	        sentido = s.nextInt();
-	        mov = a.movimentar(jog,exp,(pos+1)%2,sentido);
+	        mov = a.movimentar(jog,exp,dado[(pos+1)%2],sentido);
 	        
 	    	
 	    }
