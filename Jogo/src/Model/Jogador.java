@@ -26,7 +26,7 @@ class Jogador{
     	exploradores[ind][0] = j;
     	exploradores[ind][1] = i;
     	
-    	if(exploradores[ind] == polo_oposto) {
+    	if(exploradores[ind][0] == polo_oposto[0] && exploradores[ind][1] == polo_oposto[1]) {
     		status_exp[ind] = 1;
     		pontos++;
     	}
@@ -51,6 +51,10 @@ class Jogador{
     void volta_polo(int ind) {
     	exploradores[ind][0] = polo[0];
         exploradores[ind][1] = polo[1];
+
+    }
+    void vai_polo_oposto(int ind) {
+    	setposicao(ind, polo_oposto[1],polo_oposto[0]);
 
     }
 }
