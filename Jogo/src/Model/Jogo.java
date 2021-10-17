@@ -10,14 +10,9 @@ class Jogo{
         polo[1] = 8;
         polo_oposto[0] = 14;
 		polo_oposto[1] = 8;
-		
-
-
-		
 
     }
-    
-    
+     
     public Jogo(int modo, int qnt){
         this.modo = modo;
         jog = new Jogador[qnt];
@@ -37,13 +32,62 @@ class Jogo{
         dado[1] = random.nextInt(6)+1;
         return dado;
     }
-    public int dado_colorido(){
+    /*-----------------------------------------//---------------------------------------//------------------------------------------------*/
+    public char dado_colorido(){
+    	int colorido = random.nextInt(6)+1;
         if(dado[0] == dado[1]){
-            return 1;
+            switch(colorido) {
+            case 1:
+            	return 'A';
+            case 2:
+            	return 'V';
+            case 3:
+            	return 'P';
+            case 4:
+            	return 'R';
+            case 5:
+            	return 'L';
+            case 6:
+            	return 'P';
+            }
         }
         return 0;
     }
-    int ver_exp(int ind_jog, int i, int j) {
+    public int compara_cor( char cor) {/*retorna o indice do jogador que tem a cor*/
+    	int indice = 0;
+    	for(Jogador j: jog) {
+    		if(j.getcor() == cor) {
+    				return indice;
+    		}
+    		indice++;
+    	}
+    	
+    	return -1;
+    }
+    public void acao_dado_colorido(int ind_jog, int indice, int ind_exp) {
+    	if(indice == -1) {
+    		return;
+    	}
+    	if(ind_jog == indice) {/*caso o jogador seja o mesmo do dado colorido*/
+    		jog[ind_jog].vai_polo_oposto(ind_exp);
+    	}
+    	else {
+    		if(modo == 1) {/*caso seja em duplas*/
+        		if(ver_time(time1,jog[ind_jog].getcor(),jog[indice].getcor()) || ver_time(time2,jog[ind_jog].getcor(),jog[indice].getcor())) {
+        			jog[indice].vai_polo_oposto(ind_exp);
+    			}
+        		else {
+        			jog[indice].volta_polo(ind_exp);
+        		}
+    		}
+    		else {
+    			System.out.println("Voltou ao polo!!!");
+        		jog[indice].volta_polo(ind_exp);
+    		}
+    	}
+    }
+    /*-----------------------------------------//---------------------------------------//------------------------------------------------*/
+    int ver_exp(int ind_jog, int i, int j) {/*verifica o indice do explorador do jogador que esta na posicao i,j*/
     	for(int x =0; x<6;x++) {
     		if(jog[ind_jog].getposicao(x)[0] == j && jog[ind_jog].getposicao(x)[1] == i) {
     			return x;
@@ -51,12 +95,15 @@ class Jogo{
     	}
     	return 0;
     }
-    boolean ver_time(char time[], char a, char b) {
+    boolean ver_time(char time[], char a, char b) {/*verifica se o a e b estão no mesmo time*/
     	return (a == time[0] || a == time[1]) && (b == time[0] || b == time[1]) ;
     }
     boolean capturar(int ind_jog,int i, int j) {
     	boolean meta = false;
     	int pos[] = ver_pos(ind_jog,i,j), ind_jog2 = pos[0],ind_exp;
+    	if(jog[ind_jog].polo_oposto[1] == i && jog[ind_jog].polo_oposto[0] == j) {
+    		return true;
+    	}
     	if(pos[1] == 1) {/*Se a posicao que o explorador vai se mover ja tem 1 explorador do mesmo jogador*/
     		for (int x[]: pos_metas) {
     			if(i == x[0] && j == x[1]) {/*Se tiver uma meta*/
@@ -111,7 +158,7 @@ class Jogo{
     public int movimentar(int ind_jog,int ind_exp,int x, int sent){
         int i,j,dis[] = {0,0};
         if(jog[ind_jog].status_exp(ind_exp)){
-    		return 0;
+    		return -1;
     	}
         
         i = jog[ind_jog].getposicao(ind_exp)[1];
@@ -130,7 +177,8 @@ class Jogo{
         else{
         	dis[0] -= dado[x];
         }
-        
+    	
+        /*Se a posicao que o explorador for movimentar tiver no maximo 1 explorador do outro jogador (ou time se for modo 1) ou for o polo oposto*/
         if((ver_pos(ind_jog,dis[1],dis[0])[1] > -2    && capturar(ind_jog,dis[1],dis[0])) || (jog[ind_jog].polo_oposto[1] == dis[1] && jog[ind_jog].polo_oposto[0] == dis[0]) ){
         	System.out.println("Movimentou!");
         	jog[ind_jog].setposicao(ind_exp, dis[1], dis[0]);
@@ -139,6 +187,7 @@ class Jogo{
         
         return 0;
     }
+    /*-----------------------------------------//---------------------------------------//------------------------------------------------*/
     int[] getposicao(int ind_jog, int ind_exp) {
     	int res[] = {jog[ind_jog].getposicao(ind_exp)[1],jog[ind_jog].getposicao(ind_exp)[0]};
     	return res;
@@ -151,5 +200,16 @@ class Jogo{
         	}
         }
         return res == 6;
+    }
+    public char ver_ganhador() {
+    	int pontos =0;
+    	char jog_cor = 'A';
+    	for(Jogador j: jog) {
+    		if(j.getpontos()> pontos ) {
+    			jog_cor = j.getcor();
+    			pontos = j.getpontos();
+    		}
+    	}
+    	return jog_cor;
     }
 }
