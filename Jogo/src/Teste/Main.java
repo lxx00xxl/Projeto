@@ -22,7 +22,7 @@ public class Main
     Regras a = new Regras(modo,qnt);
 	while(!a.ganhou(ant)){
 		exp = -1;
-	    System.out.println(jog+ " Sua vez: Jogue o dado");
+	    System.out.println("Sua vez: Jogue o dado jogador " + (jog+1));
 	    dado = a.jogardado();
 	    System.out.println("dado 0:"+dado[0]);
 	    System.out.println("dado 1:"+dado[1]);
@@ -42,7 +42,7 @@ public class Main
 	    exp = s.nextInt();
 	    System.out.println("Escolha qual dado usar: 0 ou 1");
 	    pos = s.nextInt();
-	    System.out.println("Escolha o sentido: 1 -1 2 -2");
+	    System.out.println("Escolha o sentido: 1(baixo) -1(cima) 2(lado-es) -2(lado-di)");
 	    sentido = s.nextInt();
 	    pos_ant = a.getposicao(jog, exp);
 	    mov = a.movimentar(jog,exp,pos,sentido);
@@ -60,6 +60,7 @@ public class Main
 	        
 	    	
 	    }
+	    System.out.println("Movimentou!");
 	    tabuleiro.atualiza_mapa(a, jog, exp,pos_ant);
 	    tabuleiro.exibir();
 	    System.out.println("Escolha o explorador:");
@@ -82,11 +83,12 @@ public class Main
 	        
 	    	
 	    }
+	    System.out.println("Movimentou!");
 	    tabuleiro.atualiza_mapa(a, jog, exp,pos_ant);
 	    tabuleiro.exibir();
 	    ant = jog;
 	    jog++;
-	    if(jog>qnt){
+	    if(jog>qnt-1){
 	        jog =0;
 	    }
 	}
