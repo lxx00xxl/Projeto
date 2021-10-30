@@ -2,8 +2,8 @@ package Model;
 
 
 class Jogador{
-    int exploradores[][] = new int[6][2], pontos =0, metas = 0, status_exp[] = {0,0,0,0,0,0}, polo[] = new int[2], polo_oposto[] = new int[2];
-    private char cartas[] = new char[10];
+    int exploradores[][] = new int[6][2], pontos =0, metas = 0, status_exp[] = {0,0,0,0,0,0}, polo[] = new int[2], polo_oposto[] = new int[2], ind_cartas = 0;
+    private int cartas[] = new int[10];
     char cor ;
     
     public Jogador(int polo[],int polo_oposto[], char cor){
@@ -47,6 +47,13 @@ class Jogador{
     }
     void addmeta() {
     	metas++;
+    }
+    void addcarta(int carta) {
+    	this.cartas[ind_cartas] = carta;
+    	this.ind_cartas += 1;
+    }
+    int[] getcartas() {
+    	return cartas;
     }
     void volta_polo(int ind) {
     	exploradores[ind][0] = polo[0];
