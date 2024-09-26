@@ -2,7 +2,7 @@ package Model;
 import java.util.Random;
 class Jogo{
     Random random = new Random();
-    int dado[] = new int[2], pos_metas[][]= {{8,2},{8,8}}, modo = 0,polo[]= new int[2], polo_oposto[] = new int[2];
+    int dado[] = new int[2], pos_metas[][]= {{8,2},{8,8}}, modo = 0,polo[]= new int[2], polo_oposto[] = new int[2], cartas_compradas[] = new int[12], ind_cartas;
     Jogador jog[];
     char cor[] = {'A','V','R','L'}, time1[] = {cor[0],cor[1]},time2[] = {cor[2],cor[3]};
     {
@@ -95,8 +95,19 @@ class Jogo{
     	}
     	return 0;
     }
-    boolean ver_time(char time[], char a, char b) {/*verifica se o a e b estão no mesmo time*/
+    boolean ver_time(char time[], char a, char b) {/*verifica se o a e b estÃ£o no mesmo time*/
     	return (a == time[0] || a == time[1]) && (b == time[0] || b == time[1]) ;
+    }
+	int comprar_carta() {
+    	carta = random.nextInt(18)+1;
+    	for(int c: cartas_compradas) {
+    		while(c == carta) {
+    			carta = random.nextInt(18)+1;
+    		}
+    	}
+    	cartas_compradas[ind_cartas] = carta;
+    	ind_cartas += 1;
+    	return carta;
     }
     boolean capturar(int ind_jog,int i, int j) {
     	boolean meta = false;
@@ -116,6 +127,8 @@ class Jogo{
     		if(meta) {/*adiciona a meta ao jogador e soma os pontos*/
     			jog[ind_jog].addmeta();
     			jog[ind_jog].somarpontos(1);
+			    int c = comprar_carta();
+    			jog[ind_jog].addcarta(c);
     			System.out.println("Ganhou uma meta!");
 
     		}
@@ -127,7 +140,7 @@ class Jogo{
     			}
     		}
     		System.out.println("Capturou!");
-    		/*Captura o explorador advesário*/
+    		/*Captura o explorador advesÃ¡rio*/
     		ind_exp = ver_exp(ind_jog2,i,j);
     		jog[ind_jog2].volta_polo(ind_exp);
     		
@@ -203,13 +216,24 @@ class Jogo{
     }
     public char ver_ganhador() {
     	int pontos =0;
+	int pontos2 = 0;
     	char jog_cor = 0;
-    	for(Jogador j: jog) {
-    		if(j.getpontos()> pontos ) {
-    			jog_cor = j.getcor();
-    			pontos = j.getpontos();
+    	if(modo == 0) {
+    		for(Jogador j: jog) {
+    			if(j.getpontos()> pontos ) {
+    				jog_cor = j.getcor();
+    				pontos = j.getpontos();
+    			}
     		}
+    		return jog_cor;
     	}
+    	pontos = jog[0].getpontos() + jog[1].getpontos();
+    	pontos2 = jog[2].getpontos() + jog[3].getpontos();
+    	if(pontos > pontos2) {
+    		jog_cor = '1';   /* Time 1 venceu */
+    		return jog_cor;
+    	}
+    	jog_cor = '2';   /* Time 2 venceu */
     	return jog_cor;
     }
 }
